@@ -175,11 +175,6 @@ AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
 
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
