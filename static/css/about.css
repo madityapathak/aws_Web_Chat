@@ -1,0 +1,220 @@
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+
+html{
+    font-size: 1vw;
+}
+
+body{
+    background-color: #3c3c3c;
+}
+
+.body-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content-container{
+    width: 85%;
+}
+
+.warning-div{
+    margin: 1% 0;
+    background-color: aliceblue;
+}
+
+.heading{
+    text-align: center;
+    font-size: 1.7rem;
+    letter-spacing: 0.2rem;
+    text-transform: capitalize;
+    color: red;
+}
+
+.warning-text p{
+    margin: 0.5% 3%;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    color: red;
+}
+
+.dev-detail{
+    margin: 1% 0;
+    background-color: aliceblue;
+}
+
+.heading-dev{
+    margin: 0 0 1% 0;
+}
+
+.heading-dev p{
+    text-align: center;
+    font-size: 1.7rem;
+    letter-spacing: 0.2rem;
+    text-transform: capitalize;
+}
+
+.dev-details{
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 3%;
+}
+.detail-lst{
+    width: 73%;
+    margin: auto;
+}
+
+.ul-list{
+    display: flex;
+    flex-flow: column wrap;
+    text-align: center;
+}
+
+.dev-img-container{
+    margin: 0 2%;
+    width: 22%;
+    display: flex;
+    align-items: center;
+}
+.dev-img-container img{
+    width: 98%;
+    display: block;
+}
+
+.ul-div{
+    margin: 4% 0;
+    padding: 0.8%;
+    background-color: #979797;
+}
+.ul-list li{
+    font-size: 1.3rem;
+    margin-right: 1.5%;
+    letter-spacing: 0.1rem;
+}
+
+.ul-list li p a{
+    color: #2200de;
+}
+
+.description-div{
+    margin: 1% 1% 0.5% 0;
+}
+.description-div p{
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    line-height: 1.5rem;
+}
+
+.about-website{
+    background-color: aliceblue;
+}
+
+.about-website-div{
+    width: 95%;
+    margin: 0 auto;
+}
+.about-website-div p{
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    line-height: 1.5rem;
+}
+
+.about-website-details{
+    margin: 3% auto;
+    width: 85%;
+    padding-bottom: 3%;
+}
+
+.languages-div{
+    margin: 1% 0 0 0;
+    background-color: #979797;
+    padding: 1%;
+}
+
+
+/* make display fles to column after 730px */
+
+
+/* 
+@media (min-width:601px) and (max-width:850px){} */
+@media (min-width:900px) and (max-width:1050px){
+    html{
+        font-size: 1.3vw;
+    }
+    .content-container{
+        width: 94%;
+    }
+}
+@media (min-width:730px) and (max-width:899px){
+    html{
+        font-size: 1.5vw;
+    }
+    .content-container{
+        width: 94%;
+    }
+}
+
+@media (max-width:729px){
+    .dev-details{
+        flex-flow: column wrap;
+    }
+    html{
+        font-size: 1.6vw;
+    }
+    .dev-img-container{
+        margin: 0 auto;
+        width: 100%;
+        justify-content: center;
+    }
+    .dev-img-container img{
+        width: 50%;
+        margin-bottom: 1%;
+    }
+    .detail-lst{
+        width: 97%;
+    }
+    .ul-div{
+        margin: 1% 0;
+    }
+}
+
+@media (max-width:660px){
+    html{
+        font-size: 1.9vw;
+    }
+    .dev-img-container img{
+        width: 60%;
+    }
+}
+
+@media (max-width:550px){
+    html{
+        font-size: 2.4vw;
+    }
+    .dev-img-container img{
+        width: 70%;
+    }
+}
+
+@media (max-width:450px){
+    html{
+        font-size: 2.8vw;
+    }
+    .dev-img-container img{
+        width: 80%;
+    }
+}
+
+@media (max-width:390px){
+    html{
+        font-size: 3.2vw;
+    }
+    .dev-img-container img{
+        width: 90%;
+    }
+}

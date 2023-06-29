@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+  
+  <div class="logo-container"><img src="{% static 'icons/logo.svg' %}" alt="logo"></div>
+  <div><a href="">Web Chat</a></div>
+	
+  <div class="menu-btn">
+    <div class="menu-btn__burger"></div>
+  </div>
+
+</nav>
+
+
+<nav class="second-navbar">
+  <ul class='container ' >
+    <li><a href="{% url 'accounts:home' %}">Home</a></li>
+		<li><a href="{% url 'public_chat:home' %}">Public Chat</a></li>
+		<li><a href="{% url 'notifications:notification' %}">Notifications</a></li>
+
+    
+		<div class="Search-form">
+			<form method="GET" action="{% url 'accounts:home' %}">
+			<input type="text" name="q" id="" placeholder="Search WebChat...">
+			</form>
+		</div>
+    
+    <li><a href="{% url 'accounts:about-page' %}">About</a></li>
+    
+    {% if request.user.is_authenticated %}
+    <div class="user-logo"><a href="{% url 'friend:profile' request.user.username %}"><img src="{{ request.user.profile_image.url }}" alt="profile img"></a></div>
+    {% endif %}
+    
+	</ul>
+
+</nav>
+
+{% block content %}
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+<div class="footer">
+  <p>Web Chat &copy; 2023 - all rights reserved</p>
+</div>
+
+<script src="{% static 'js/navbar.js' %}"></script>
+</body>
+</html>

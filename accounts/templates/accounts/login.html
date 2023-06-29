@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebChat</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="outer-most-container">
+        <div class="mini-nav-container">
+            <div class="auth-logo-container-div">
+                <img src="{% static 'icons/logo.svg' %}" alt="logo">
+            </div>
+            <div class="site-name-holder">
+                <p>WEB CHAT</p>
+            </div>
+            
+        </div>
+
+        {% if messages %}
+        
+        <div class="backend-msg-container">
+            <ul class="error-messages">
+                {% for message in messages %}
+                <li class="error"><p>{{message}}</p></li>
+                {% endfor %}
+            </ul>  
+        </div>
+        {% endif %}
+
+        <div class="actual-form-container">
+            <div class="login-form-container">
+
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="username">Email:</label>
+                    <input type="text" id="username" name="email">
+            
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+            
+                    <input class="login-btn" type="submit" value="Log in">
+            
+                </form>
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="btns-conatiner">
+            <div>
+                <p><a href="{% url 'accounts:signup' %}">Sign up ?</a></p>
+            </div>
+            <div>
+                <p><a href="{% url 'accounts:passwordreset' %}">forgot password ?</a></p>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="footer">
+        <p>Web Chat &copy; 2023 - all rights reserved</p>
+      </div>
+</body>
+</html>

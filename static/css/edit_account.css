@@ -1,0 +1,254 @@
+* {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+html{
+    font-size: 1vw;
+}
+
+body{
+    background-color: #3c3c3c;
+}
+
+.backend-messages{
+    width: 100%;
+    margin-bottom: 0.5%;
+}
+.backend-messages ul{
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+}
+.backend-messages ul li{
+    color: red;
+    margin: 1% 3%;
+    font-size: 1.3rem;
+    letter-spacing: 0.1vw;
+    width: 100%;
+}
+
+.outer-profile-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-container{
+    width: 22%;
+    border: 1px solid white;
+    background-color: rgb(139, 143, 134);
+}
+
+.cancle-conf-div{
+    width: 100%;
+}
+.cancle-conf-div ul{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.cancle-conf-div ul li{
+    width: 42%;
+}
+
+.cancle-conf-div ul li input{
+    width: 100%;
+    padding: 3% 0;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: aliceblue;
+    background-color: blue;
+}
+.cancle-conf-div ul li a{
+    display: none;
+    font-family: sans-serif;
+    /* display: block; */
+    width: 100%;
+    padding: 3% 0;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    cursor: pointer;
+    text-align: center;
+    background-color: blue;
+    color: aliceblue;
+}
+
+.profile-image-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.profile-image-container img{
+    display: block;
+    margin-top: 1.5%;
+    width: 97%;
+}
+
+.edit-btn-holder{
+    margin: 1% 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.edit-btn-holder input{
+    width: 97%;
+    padding: 3% 0;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: aliceblue;
+    background-color: blue;
+}
+
+.remove-img-btn-holder{
+    margin-bottom: 1%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.remove-img-btn-holder input{
+    width: 97%;
+    padding: 3% 0;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: aliceblue;
+    background-color: blue;
+}
+
+.edit-user-form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.edit-user-form form{
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+}
+.edit-user-form form p{
+    display: flex;
+    flex-flow: column wrap;
+    width: 95%;
+    margin: 2% 1% 0 3%;
+}
+.edit-user-form form p textarea{
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 2%;
+    width: 94%;
+    margin-left: 2%;
+    font-size: 1.1rem;
+    height: 7rem;
+}
+.edit-user-form form p input{
+    width: 94%;
+    margin-left: 2%;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    padding-left: 2%;
+    line-height: 1.6rem;
+}
+.edit-user-form form p label{
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+
+.form-save-btn{
+    margin: 0 auto;
+    width: 97%;
+    padding: 3% 0;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: aliceblue;
+    background-color: blue;
+}
+
+
+
+@media (max-width:1050px){
+    .profile-container{
+        width: 27%;
+    }
+    html{
+        font-size: 1.2vw;
+    }
+    .backend-messages ul li {
+        font-size: 1.4rem;
+    }
+}
+@media (max-width:890px){
+    .profile-container{
+        width: 36%;
+    }
+    html{
+        font-size: 1.6vw;
+    }
+
+}
+@media (max-width:740px){
+    .profile-container{
+        width: 40%;
+    }
+    html{
+        font-size: 1.8vw;
+    }
+}
+@media (max-width:630px){
+    .profile-container{
+        width: 45%;
+    }
+    html{
+        font-size: 2vw;
+    }
+    .backend-messages ul li {
+        font-size: 1.6rem;
+    }
+}
+@media (max-width:520px){
+    .profile-container{
+        width: 55%;
+    }
+    html{
+        font-size: 2.4vw;
+    }
+}
+@media (max-width:410px){
+    .profile-container{
+        width: 68%;
+    }
+    html{
+        font-size: 2.7vw;
+    }
+}
+@media (max-width:365px){
+    .profile-container{
+        width: 91%;
+    }
+    html{
+        font-size: 3.2vw;
+    }
+}
+@media (max-width:295px){
+    .profile-container{
+        width: 96%;
+    }
+    html{
+        font-size: 3.8vw;
+    }
+}

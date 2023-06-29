@@ -1,0 +1,16 @@
+<script>
+
+	function delete_convo(id,element){
+		element.disabled = true;
+		const payload=new FormData;
+		payload.append('csrfmiddlewaretoken','{{ csrf_token }}')
+		payload.append('room_id',id)
+		var xhr=new XMLHttpRequest();
+		var url = "{% url 'private_chat:delete-conversation' %}";
+		xhr.open("POST",url,true);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				location.reload()	}	}
+		xhr.send(payload);	}
+
+</script>

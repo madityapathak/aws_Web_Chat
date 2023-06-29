@@ -1,0 +1,17 @@
+<script>
+
+	function email_status(username,element){
+		element.style['display'] = "none";
+		const payload=new FormData;
+		payload.append('csrfmiddlewaretoken','{{ csrf_token }}')
+		payload.append("username", username)
+		var xhr=new XMLHttpRequest();
+		var url = "{% url 'friend:email_status' %}";
+		xhr.open("POST",url);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				location.reload()	}	}
+		xhr.send(payload);	}
+
+</script>
+

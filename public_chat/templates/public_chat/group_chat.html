@@ -1,0 +1,335 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'public_chat/snippets/leavechat.html' %}
+{% include 'public_chat/snippets/clearconvo.html' %}
+{% include 'public_chat/snippets/removeuser.html' %}
+{% include 'public_chat/snippets/restrict.html' %}
+{% include 'public_chat/snippets/unrestrict.html' %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{% static 'css/public_chat.css' %}">
+
+<body>
+    <div class="public-chat-container">
+        <div class="block-list-div">
+            <div class="block-back-btn">
+                <p>back</p>
+            </div>
+            <div class="show-participants-btn">
+                <p>show participants</p>
+            </div>
+            <div>
+                <p class="heading">restricted users</p>
+                <div class="restricted-user-accounts">
+                    {% for user in restricted_users %}
+                        <div class="user-details">
+                            <div>
+                                <img src="{{user.profile_image.url}}">
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><a href="{% url 'friend:profile' user.username %}">{{user.first_name}}</a></li>
+                                    {% if request.user == room.host %}
+                                        <li>
+                                            <input type="submit" value="unrestrict messages" onclick="unrestrict_user('{{room.id}}','{{user.id}}',this)" >
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- allow only 16 characters in name -->
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+        
+        <div class="chat-box-div">
+
+            <div class="first-col">
+                <div class="restricted-users-btn">
+                    <p>restricted users</p>
+                </div>
+                <div class="participants-btn">
+                    <p>participants</p>
+                </div>
+            </div>
+            <div class="sec-col">
+                <div class="room-name-sec"><p>{{room.name}}</p></div>
+
+                {% if request.user in participants %}
+                    <div class="update-room-btn"><a href="{% url 'public_chat:update-room' room.id %}">update room</a></div>
+                {% endif %}
+                {% if request.user == room.host %}
+                    <div class="delete-room-btn"><a href="{% url 'public_chat:delete-room' room.id %}">delete room</a></div>
+                {% endif %}
+
+                {% if request.user in participants %}
+                <div class="leave-clear"><input type="submit" value="leave room" onclick="leave_room('{{room.id}}',this)"></div>
+                <div class="leave-clear"><input type="submit" value="clear convo" onclick="show_clear_form(this)"></div>
+                {% endif %}
+
+            </div>
+
+            {% if request.user in participants %}
+            <div class="third-col">
+                <form id="clear-confirm" onsubmit="return cancelForm(event)">
+                    <div><p>are you sure yo want to clear conversation</p></div>
+                    <div>
+                        <div><a href="">no</a></div>
+                        <div><input type="submit" value="confirm" onclick="clear_convo('{{room.id}}',this)"></div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+
+
+            <div>
+            
+                <div class="actual-chat-container" id="actual-chat-container">
+
+                    {% for message in messages %}
+                    {% if message.user == request.user %}
+
+
+                    <ul class="your-msg">
+                        <li class="text-body" id="21{{message.id}}adi" onclick="show_detail('{{message.id}}')">{{message.body}}</li>
+            
+                        <li hidden id="{{message.id}}" class="text-detail"><a class="msg-usr" href="{% url 'friend:profile' message.user.username %}">@{{message.user.first_name}} {{message.user.last_name}}</a> updated {{message.update_status}} times,Last updated-{{message.updated}} 
+                            {% if request.user == message.user %}
+                            <a href="{% url 'public_chat:delete-a-message' message.id %}">delete</a>
+                            {% if request.user not in restricted_users %}
+                            <input type="submit" value="edit" onclick="edit('{{message.id}}')">
+                            {% endif %}
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                    {% else %}
+                    
+                    <ul class="others-msg">
+                        <li class="text-body" id="21{{message.id}}adi" onclick="show_detail('{{message.id}}')">{{message.body}}</li>
+            
+                        <li hidden id="{{message.id}}" class="text-detail"><a class="msg-usr" href="{% url 'friend:profile' message.user.username %}">@{{message.user.first_name}} {{message.user.last_name}}</a> updated {{message.update_status}} times,Last updated-{{message.updated}} 
+                            {% if request.user == message.user %}
+                            <a href="{% url 'public_chat:delete-a-message' message.id %}">delete</a>
+                            {% if request.user not in restricted_users %}
+                            <input type="submit" value="edit">
+                            {% endif %}
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                    {% endif %}
+                    {% endfor %}
+                    
+                </div>                
+            </div>
+
+
+
+            {% if request.user not in restricted_users %}
+            <div>
+                <form id="form" method="POST">
+                    {% csrf_token %}
+                    <textarea id="message" name="body" ></textarea>
+                    <input class="send-btn" type="submit" value="send" id="messageinput">
+                </form>
+            </div>
+
+
+
+            <div>    
+                <form id="edit-form" method="POST" action="{% url 'public_chat:edit-message' %}">
+                    {% csrf_token %}
+                    <textarea  id='edit-message' name="body" ></textarea>
+                    <input type="hidden" name="msg_id" id="edit-msg-id">
+                    <a class="discard-edit-btn" href="">discard edit</a>
+                    <input class="confirm-edit-btn" type="submit" value="confirm edit">
+                </form>
+            </div>
+            {% endif %}
+
+
+        </div>
+
+
+
+        
+
+        <div class="participants-div">
+            <div class="participants-back-btn">
+                <p>back</p>
+            </div>
+            <div class="show-restricted-user-btn">
+                <p>show restricted users</p>
+            </div>
+            <div>
+                <p class="heading">participants</p>
+                <div>
+                    {% for participant in participants %}
+                        <div class="participants-details">
+                            <div class="participant-container-div">
+                                <img src="{{participant.profile_image.url}}">
+                            </div>
+                            <div>
+                                <div class="name-holder">        
+                                    <!-- allow only 16 characters in name -->
+                                    <a href="{% url 'friend:profile' participant.username %}">{{participant.first_name}}</a>
+                                </div>
+                                <div class="btn-holder-div">
+                                    {% if request.user == room.host and participant != room.host %}
+                                    <input type="submit" value="remove" onclick="remove_user('{{room.id}}','{{participant.id}}',this)">
+                                    {% if participant in restricted_users %}
+                                    <input type="submit" value="unrestrict" onclick="unrestrict_user('{{room.id}}','{{participant.id}}',this)">
+                                    {% else %}
+                                    <input type="submit" value="restrict" onclick="restrict_user('{{room.id}}','{{participant.id}}',this)">
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div> 
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/public_chat.js' %}"></script>
+
+<script>
+    function show_detail(id){
+        var elemen_t= document.getElementById(id)
+        if(elemen_t.style.display=="none"){elemen_t.style.display="block"}
+        else{elemen_t.style.display="none"} }
+</script>
+
+<script>
+    var edit_form = document.getElementById('edit-form')
+    if (edit_form !== null ){
+        edit_form.style.display='none';}
+    function edit(id){
+        const paragraph = document.getElementById("21"+id+"adi");
+		const tex_t = paragraph.textContent;
+
+        var for_m = document.getElementById('form')
+        for_m.style.display="none";
+        edit_form.style.display='flex';
+        var edit_msg = document.getElementById('edit-message')
+        edit_msg.value=tex_t
+        var edit_mg_id = document.getElementById('edit-msg-id')
+        edit_mg_id.value=id }
+</script>
+
+<script>
+    function cancelForm(event) {
+        event.preventDefault();
+        return false;   }
+    var clear_confirm = document.getElementById('clear-confirm')
+
+
+
+    if (clear_confirm !== null){
+    clear_confirm.style.display="none"; }
+
+
+
+    
+    function show_clear_form(element){
+        element.style.display = "none";
+        clear_confirm.style.display="flex";  }
+</script>
+
+
+<script type="text/javascript" src="{% static 'js/reconnecting-websocket.js' %}"></script>
+
+
+
+    <script>
+        // var loc = window.location
+        // var wsStart = 'ws://'
+        // if (loc.protocol== 'https:'){
+        //     wsStart='wss://' }
+        // var endpoint= wsStart + loc.host + loc.pathname
+
+
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        // if ("{{ debug_mode }}") {
+        //     var endpoint = ws_scheme + '://' + window.location.host + window.location.pathname;
+        //     console.log("====================================in if") }
+        // else {
+            var endpoint = ws_scheme + '://' + window.location.host + ":8001" + window.location.pathname; 
+            // console.log("====================================in else") }
+
+        console.log("====================================",endpoint)
+
+        var chatsocket = new ReconnectingWebSocket (endpoint);
+        var submit = document.getElementById('messageinput');
+        var form=document.getElementById('form');
+        var msg=document.getElementById('message');
+        var lst=document.getElementById('actual-chat-container');
+        lst.scrollTop = lst.scrollHeight;
+        
+
+        chatsocket.onopen= function(e){
+            if (form !== null) {
+            form.addEventListener('submit',function(event){
+                event.preventDefault();
+                var ms=msg.value
+                if(ms.trim().length){
+                    var data= {
+                        'message' : ms  }
+                    chatsocket.send(JSON.stringify(data))
+                    form.reset()    }
+                })  }  
+        }
+
+        chatsocket.onmessage= function(e){
+            mg=JSON.parse(e.data)
+            if('{{request.user.email}}'== mg.user){
+                var myUl=document.createElement('ul')
+                myUl.classList.add('your-msg')
+                var myLi=document.createElement('li')
+                myLi.classList.add('text-body')
+                myLi.textContent=mg.message
+                myUl.appendChild(myLi)
+                lst.appendChild(myUl)   }
+            else{
+                var my_Ul=document.createElement('ul')
+                my_Ul.classList.add('others-msg')
+                var my_Li=document.createElement('li')
+                my_Li.classList.add('text-body')
+                my_Li.textContent=mg.message
+                my_Ul.appendChild(my_Li)
+                lst.appendChild(my_Ul)    }
+        }
+
+        chatsocket.onerror=function(e){
+            console.error("error.........");
+        }
+
+        chatsocket.onclose=function(e){
+            console.log('disconnect...................');
+        }
+
+    </script>
+
+{% endblock content %}

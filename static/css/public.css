@@ -1,0 +1,374 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    background-color: #3c3c3c;
+}
+
+.public-container{
+    
+    margin: 1%;
+    display: flex;
+    justify-content: center;
+}
+.public-container div{
+    height: fit-content;
+    background-color: rgb(139, 143, 134);
+    margin:0 1%;
+    border-radius: 12px;
+}
+.first-div{
+    
+    width:29%;
+}
+.second-div{
+    width:69%;
+    
+}
+.align-left{
+    padding-left: 13px;
+    display: flex;
+}
+.align-right{
+    line-height: 10px;
+    padding-right: 13px;
+    display: flex;
+    justify-content: right;
+}
+.hidden-btn{
+    display: none;
+    cursor: pointer;
+    margin-top: 4px !important;
+    background-color: #3c4b52 !important;
+    width: 95%;
+    border-radius: 6px !important;
+}
+.align-right-end{
+    padding-right: 13px;
+    display: flex;
+    justify-content: right;
+}
+.first-column{
+    display: flex;
+    flex-flow: row nowrap;
+}
+.first-div-container{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.first-first-div{
+    width:97% !important;
+}
+
+.first-second-div{
+    display: none;
+    width:28% !important;
+}
+.first-second-div img{
+    width: 111px !important;
+    height: auto !important;
+    margin: 4px;
+    border-radius: 8px !important;
+}
+.first-div div{
+    
+    text-align: center;
+    margin: auto;
+}
+.public-container div div h4{
+    padding: 4px 0;
+}
+.first-div div div{
+    background-color:#4f5b64;
+    width:95%;
+}
+.first-div img{
+    border-radius: 17px;
+    border: 2px solid gray;
+    width:30px;
+    height:30px
+}
+.align-left a{
+    font-size: 20px;
+    margin: auto 0;
+}
+#first-div{
+    margin-top: 8px;
+    padding-bottom:10px;
+}
+.participants-column{
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+.first-div div div a{
+    font-size: 22px;
+}
+.participants-column img{
+    width: 20px;
+    height: 20px;
+    border-radius: 12px;
+    border: 2px solid gray;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#first-row{
+    align-items: center;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 33px;
+}
+#first-row form{
+    border-radius: 5px;
+    background-color: aliceblue;
+    width: 204%;
+}
+#first-row input{
+    text-align: center;
+    outline: none;
+    border: none;
+    height: 70%;
+    width: 100%;
+}
+#room-creation-btn{
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 0 1%;
+}
+
+#view-your-rooms{
+    display: none;
+    background-color: #3c4b52;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+#room-division{
+    text-align: center;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#room-division div{
+    background-color:#4f5b64;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+.public-card{
+    width: 68%;
+    flex-flow: column wrap !important;
+}
+.public-card-image{
+    width: 27%;
+}
+.public-card-image img{
+    margin: 4px;
+    width: 111px;
+}
+.public-card div{
+    display: flex;
+    flex-flow: row nowrap !important;
+    justify-content: space-between;
+}
+.public-card div li{
+    margin:auto;
+    line-height: 13px;
+    word-wrap: break-word;
+    font-size: 11px
+}
+.first-row-public{
+    justify-content: space-between !important;
+}
+.first-row-public div img{
+    width: 30px;
+    border-radius: 17px;
+    border: 2px solid gray;
+}
+.last-line li{
+    font-size: 18px !important;
+    line-height: 24px !important;
+}
+.margin-right{
+    margin-right:8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:775px){
+    .first-div{
+        display: none;
+    }
+    #view-your-rooms{
+        display: block;
+    }
+    .hidden-btn{
+        display: block;
+    }
+    .second-div{
+        width:97%;
+    }
+    .first-first-div{
+        width:68% !important;
+    }
+    .first-second-div{
+        display: block;
+    }
+}
+
+@media (min-width:550px) and (max-width:774px){
+
+}
+
+@media (min-width:501px) and (max-width:549px){
+    #first-row form{
+        width: 183%;
+    }
+
+}
+@media (min-width:450px) and (max-width:500px){
+    #first-row form{
+        width: 160%;
+    }
+}
+
+@media (min-width:400px) and (max-width:449px){
+    #first-row form{
+        width: 134%;
+    }
+    .public-card{
+        width:97%;
+    }
+    #room-division div{
+        flex-flow: row wrap-reverse;
+    }
+    .first-first-div{
+        width:97% !important;
+    }
+    .first-div-container{
+        flex-flow: row wrap-reverse !important;
+    }
+
+    
+}
+
+@media (min-width:341px) and (max-width:399px){
+    #first-row form{
+        width: 104%;
+    }
+    .public-card{
+        width:97%;
+    }
+    #room-division div{
+        flex-flow: row wrap-reverse;
+    }
+    .first-first-div{
+        width:97% !important;
+    }
+    .first-div-container{
+        flex-flow: row wrap-reverse !important;
+    }
+}
+
+
+
+@media (min-width:260px) and (max-width:340px){
+    #first-row {
+        height: 75px;
+        display: flex;
+        justify-content: space-around;
+        line-height: 30px;
+        flex-flow: column nowrap;
+    }
+    #room-creation-btn {
+        margin-top: 5px;
+    }
+    #first-row form {
+        height: 115%;
+        width: 109%;
+    }
+    .public-card{
+        width:97%;
+    }
+    #room-division div{
+        flex-flow: row wrap-reverse;
+    }
+    .first-first-div{
+        width:97% !important;
+    }
+    .first-div-container{
+        flex-flow: row wrap-reverse !important;
+    }
+}

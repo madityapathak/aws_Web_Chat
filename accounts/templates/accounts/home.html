@@ -1,0 +1,866 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+
+
+
+
+
+<div class="home-container">
+  <div id="first-div" class="first-div">
+    <div id="hide-friend-btn" class="hide-friend-btn">
+      <li>Back</li>
+    </div>
+    <div class="border">
+      <h2><a href="{% url 'friend:friend-list' request.user.id %}">your friends</a></h2>
+
+{% if friends %}
+        {% for friend in friends %}
+
+
+      <div class="inner-div">
+        <img src="{{ friend.profile_image.url }}">
+        <ul>
+          <li><a href="{% url 'friend:profile' friend.username %}">{{friend.first_name}} {{friend.last_name}}</a></li>
+          <li id="{{friend.username}}"></li>
+        </ul>
+      </div>
+
+
+
+<script>
+            
+            
+                    var online_div=document.getElementById('{{ friend.username }}')
+                    var lastactive = "{{ friend.last_active.isoformat }}";
+                    var last_active = new Date(lastactive);    
+                    var current_time = new Date();
+                    if ( current_time-last_active < 120000 ){
+                        online_div.append('.online')
+                    }
+                    else {
+                        var timescience = current_time-last_active
+                        var minutes=Math.floor(timescience/60000)
+                        if ( minutes < 59 ){
+                            online_div.append('last online-'+ minutes.toString() +" minutes ago")
+                        }
+                        else if (minutes > 60) {
+                            var hours = Math.floor(minutes/60)
+                            var minute_s = minutes % 60
+                            if ( hours < 3 ){
+                                online_div.append('last online-'+ hours.toString() +" hours " +minutes.toString()+" minutes ago")   }
+                            else{   online_div.append('last online-'+last_active.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }}}
+                </script>
+
+
+
+
+
+
+
+
+      {% endfor %}
+    {% endif %}
+
+
+    </div>
+  </div>
+
+
+
+  <div id="second-div" class="second-div">
+    <div id="show-friend-btn" class="show-friend-btn">
+      <li>Show Friends</li>
+    </div>
+
+    
+    <div id="searchreaults" class="border">
+      <h2>search results</h2>
+      <div>
+        <div>
+
+{% if users %}
+
+        <script>
+        var searchresultsbox=document.getElementById('searchreaults')
+        searchresultsbox.style['display']='inline-block';
+
+        </script>
+
+        {% for user in users %}
+        
+
+          <div class="inner-div">        
+            <img src="{{ user.profile_image.url }}">
+            <ul>
+              <li><a href="{% url 'friend:profile' user.username %}">{{user.first_name}} {{user.last_name}}</a></li>
+              <li id="{{user.id}}4b56"></li>
+            </ul>
+          </div>
+
+
+          <script>
+            
+            
+            var online_div=document.getElementById('{{ user.id }}'+'4b56')
+
+        
+            var lastactive = "{{ user.last_active.isoformat }}";
+            var last_active = new Date(lastactive);    
+            var current_time = new Date();
+            if ( current_time-last_active < 120000 ){
+                online_div.append('.online')
+            }
+            else {
+                var timescience = current_time-last_active
+                var minutes=Math.floor(timescience/60000)
+                if ( minutes < 59 ){
+                    online_div.append('last online-'+ minutes.toString() +" minutes ago")
+                }
+                else if (minutes > 60) {
+                    var hours = Math.floor(minutes/60)
+                    var minute_s = minutes % 60
+                    if ( hours < 3 ){
+                        online_div.append('last online-'+ hours.toString() +" hours " +minutes.toString()+" minutes ago")   }
+                    else{   online_div.append('last online-'+last_active.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }}}
+        </script>
+
+
+
+
+
+
+
+      {% endfor %}
+    {% endif %}
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+{% if chats %}
+
+        {% for chat in chats %}
+
+    <div class="border">
+      <div>
+        <ul>
+          <li>chat @</li>
+
+{% if chat.participant1 == request.user %}
+
+          <li><img src="{{chat.participant2.profile_image.url}}"></li>
+          <li><a href="{% url 'private_chat:chatroom' chat.id %}">{{chat.participant2.first_name}} {{chat.participant2.last_name}}</a></li>
+
+
+        </ul>
+      </div>
+      <div class="inner-div">
+        <div>
+          <p id="{{chat.id}}4b78msg" class="align-left"></p>
+        </div>
+        <div>
+          <p id="{{chat.id}}4b78time" class="align-right"></p>
+        </div>
+      </div>
+      <div>
+        <p id="{{ chat.id }}"></p>
+      </div>
+    </div>
+
+
+
+    <script>
+            
+    
+        var online_div=document.getElementById('{{ chat.id }}')
+        var lastactive = "{{ chat.participant2.last_active.isoformat }}";
+        var last_active = new Date(lastactive);    
+        var current_time = new Date();
+        if ( current_time-last_active < 120000 ){
+            online_div.append('.online')
+        }
+        else {
+            var timescience = current_time-last_active
+            var minutes=Math.floor(timescience/60000)
+            if ( minutes < 59 ){
+                online_div.append('last online-'+ minutes.toString() +" minutes ago")
+            }
+            else if (minutes > 60) {
+                var hours = Math.floor(minutes/60)
+                var minute_s = minutes % 60
+                if ( hours < 3 ){
+                    online_div.append('last online-'+ hours.toString() +" hours " +minutes.toString()+" minutes ago")   }
+                else{   online_div.append('last online-'+last_active.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }}}
+    </script>
+
+
+<script>
+    var key="{{ chat.id }}"
+    var message_set="{{ message_set }}"
+    var msg_div=document.getElementById('{{ chat.id }}'+'4b78msg')
+    var time_div=document.getElementById('{{ chat.id }}'+'4b78time')
+
+
+    var text=message_set.replace(/&quot;/ig,'"');
+    var all_message=text.replace(/[\r\n\t]/g, '');
+    var dict = JSON.parse(all_message);
+    msg_div.append(dict[key][0])
+    
+    if (dict[key][1] != "start chat ?..."){
+    var time_of_conversation = new Date(dict[key][1]);
+    time_div.append(time_of_conversation.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }
+    else{
+        time_div.append(dict[key][1])   }
+    
+
+</script>
+
+
+
+
+
+
+
+{% else %}
+	<li><img src="{{chat.participant1.profile_image.url}}"></li>
+          <li><a href="{% url 'private_chat:chatroom' chat.id %}">{{chat.participant1.first_name}} {{chat.participant1.last_name}}</a></li>
+
+
+
+        </ul>
+    </div>
+    <div class="inner-div">
+      <div>
+        <p id="{{chat.id}}4b78msg" class="align-left"></p>
+      </div>
+      <div>
+        <p id="{{chat.id}}4b78time" class="align-right"></p>
+      </div>
+
+
+
+    <script>
+        var key="{{ chat.id }}"
+        var message_set="{{ message_set }}"
+        var msg_div=document.getElementById('{{ chat.id }}'+'4b78msg')
+        var time_div=document.getElementById('{{ chat.id }}'+'4b78time')
+
+        var text=message_set.replace(/&quot;/ig,'"');
+        var all_message=text.replace(/[\r\n\t]/g, '');
+        var dict = JSON.parse(all_message);
+
+        msg_div.append(dict[key][0])
+
+        if (dict[key][1] != "start chat ?..."){
+        var time_of_conversation = new Date(dict[key][1]);
+        time_div.append(time_of_conversation.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }
+        else{
+        time_div.append(dict[key][1])   }
+
+
+    
+    </script>
+
+
+
+
+      
+
+    </div>
+    <div>
+      <p id="{{ chat.id }}"></p>
+    </div>
+  </div>
+
+
+
+  <script>
+          
+    var online_div=document.getElementById('{{ chat.id }}')
+  
+      var lastactive = "{{ chat.participant1.last_active.isoformat }}";
+      var last_active = new Date(lastactive);    
+      var current_time = new Date();
+      if ( current_time-last_active < 120000 ){
+          online_div.append('.online')
+      }
+      else {
+          var timescience = current_time-last_active
+          var minutes=Math.floor(timescience/60000)
+          if ( minutes < 59 ){
+              online_div.append('last online-'+ minutes.toString() +" minutes ago")
+          }
+          else if (minutes > 60) {
+              var hours = Math.floor(minutes/60)
+              var minute_s = minutes % 60
+              if ( hours < 3 ){
+                  online_div.append('last online-'+ hours.toString() +" hours " +minutes.toString()+" minutes ago")   }
+              else{   online_div.append('last online-'+last_active.toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}))   }}}
+  </script>
+
+
+
+{% endif %}
+
+
+
+
+
+      {% endfor %} 
+        
+   {% endif %}
+
+
+
+
+  </div>
+  <div class="third-div">
+    <div class="border">
+      <h2>notifications</h2>
+        <div>
+          <ul id="notification-holder">
+
+
+
+{% if notifications %}
+        {% for notification in notifications %}
+
+
+
+            <li>
+
+
+{% if notification.type == 1 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> sent you friend request.
+            {% elif notification.type == 2 %}
+                you sent friend request to <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 3 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> removed you from his friends list
+            {% elif notification.type == 4 %}
+                you removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from your friends list
+            {% elif notification.type == 5 %}
+                you accepted friend request of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 6 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> accepted your friend request
+            {% elif notification.type == 7 %}
+                you declined friend request of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 8 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> declined your friend request
+            {% elif notification.type == 9 %}
+                you cancled friend request sent to <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 10 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> cancled friend request sent to you
+            {% elif notification.type == 11 %}
+                you were removed from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+            {% elif notification.type == 12 %}
+                <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 13 %}
+                you removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 14 %}
+                your messages were restricted in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+            {% elif notification.type == 15 %}
+                <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> restricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 16 %}
+                you restricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 17 %}
+                your messages were unrestricted in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+            {% elif notification.type == 18 %}
+                <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> unrestricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 19 %}
+                you unrestricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 20 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> joined <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 21 %}
+                you joined <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 22 %}
+                you created <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 23 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> left from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 24 %}
+                you left <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 25 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat left the group
+            {% elif notification.type == 26 %}
+                you left <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat but you are still admin of the group you can delete the room if you want
+            {% elif notification.type == 27 %}
+                <a href="" >@{{notification.room_name}}</a> group chat was deteted by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+            {% elif notification.type == 28 %}
+                you deleted <a href="" >@{{notification.room_name}}</a> group chat
+            {% elif notification.type == 29 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> updated <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat details
+            {% elif notification.type == 30 %}
+                you updated <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat details
+            {% elif notification.type == 31 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat updated group image
+            {% elif notification.type == 32 %}
+                you changed image of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 33 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat removed group image
+            {% elif notification.type == 34 %}
+                you removed image of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+            {% elif notification.type == 35 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> froze chat with you
+            {% elif notification.type == 36 %}
+                you froze chat with <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 37 %}
+                you unfroze chat with <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+            {% elif notification.type == 38 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> unfroze chat with you
+            {% elif notification.type == 39 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@you</a> updated your profile pic
+            {% elif notification.type == 40 %}
+                your friend <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> updated his profile picture
+            {% elif notification.type == 41 %}
+                Hi! there, <a href="{% url 'friend:profile' notification.from_user.username %}">@ {{notification.for_user.first_name}} {{notification.for_user.last_name}}</a>, your account was created successfully
+            {% elif notification.type == 42 %}
+                <a href="{% url 'friend:profile' notification.from_user.username %}">@your</a> about details were updated successfully
+
+            {% endif %}
+
+
+		</li>
+            
+
+
+
+ {% endfor %}
+        {% endif %}
+
+
+
+
+
+
+          </ul>
+        </div>
+    </div> 
+  </div>
+</div>
+<script src="{% static 'js/home.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/reconnecting-websocket.js' %}"></script>
+
+
+    <script>
+        
+        var notification_ul=document.getElementById('notification-holder')
+
+        // var loc = window.location
+        // var wsStart = 'ws://'
+        // if (loc.protocol== 'https:'){
+        //     wsStart='wss://'
+        // }
+        // var endpoint= wsStart + loc.host + loc.pathname
+
+
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        var endpoint = ws_scheme + '://' + window.location.host + ":8001/"  //production
+        // var endpoint = ws_scheme + '://' + window.location.host + "/"
+        console.log("====================================",endpoint)
+        
+        
+        var Notificationsocket = new ReconnectingWebSocket(endpoint);
+
+        Notificationsocket.onopen= function(e){
+            
+        }
+
+        Notificationsocket.onmessage= function(e){
+            mg=JSON.parse(e.data)
+            if( mg.body == "request received"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user;
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user);
+                const texT = document.createTextNode(' sent you friend request.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)
+            }
+
+            else if ( mg.body == "unfriended you"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT = document.createTextNode(' removed you from his friends list.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+            
+
+            else if ( mg.body == "user accepted request"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT = document.createTextNode(' accepted your friend request.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "user declined request"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT = document.createTextNode(' declined your friend request.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+            
+            else if ( mg.body == "cancled request"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT = document.createTextNode(' cancled friend request sent to you.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+            
+            else if ( mg.body == "removed by admin"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@"+mg.room_name
+                myA1.href = "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                myA2.textContent="@admin"
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT1 = document.createTextNode('you were removed from ');
+                const texT2 = document.createTextNode(' group chat by ')
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "admin removed user"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                var myA3=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.host_username)
+                myA2.textContent='@'+mg.from_user
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA3.textContent='@'+mg.room_name
+                myA3.href= "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' removed ');
+                const texT2 = document.createTextNode(' from ')
+                const texT3 = document.createTextNode(' group chat ')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA3)
+                myLi.appendChild(texT3)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "restricted by admin"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@"+mg.room_name
+                myA1.href = "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                myA2.textContent="@admin"
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT1 = document.createTextNode('your messages were restricted in ');
+                const texT2 = document.createTextNode(' by ')
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+               
+                    
+            else if ( mg.body == "admin restricted user"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                var myA3=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.host_username)
+                myA2.textContent="@"+mg.from_user
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA3.textContent="@"+mg.room_name
+                myA3.href= "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' restricted messages of ');
+                const texT2 = document.createTextNode(' in ')
+                const texT3 = document.createTextNode(' group chat ')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA3)
+                myLi.appendChild(texT3)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+            
+                    
+            else if ( mg.body == "unrestricted by admin"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@"+mg.room_name
+                myA1.href = "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                myA2.textContent="@admin"
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT1 = document.createTextNode('your messages were unrestricted in ');
+                const texT2 = document.createTextNode(' group chat by ')
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+            else if ( mg.body == "admin unrestricted user"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                var myA3=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.host_username)
+                myA2.textContent="@"+mg.from_user
+                myA2.href="{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA3.textContent="@"+mg.room_name
+                myA3.href= "{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' unrestricted messages of ');
+                const texT2 = document.createTextNode(' in ')
+                const texT3 = document.createTextNode(' group chat ')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                myLi.appendChild(myA3)
+                myLi.appendChild(texT3)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+               
+                
+            else if ( mg.body == "user joined group"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = mg.from_user
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' joined ');
+                const texT2 = document.createTextNode(' group chat.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+            
+            else if ( mg.body == "user left group"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@"+mg.from_user
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' left from ');
+                const texT2 = document.createTextNode(' group chat.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+            
+                
+            else if ( mg.body == "group admin left"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' of ');
+                const texT2 = document.createTextNode('  group chat left the group.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "room deleted"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@"+mg.roomname
+                myA1.href = ""
+                myA2.textContent="@admin"
+                myA2.href= "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                const texT1 = document.createTextNode(' group chat was deteted by ');
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+            
+                
+            else if ( mg.body == "room updated"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' updated ');
+                const texT2 = document.createTextNode(' group chat details.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "admin changed roomimg"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' of ');
+                const texT2 = document.createTextNode(' group chat updated group image.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "admin removed roomimg"){
+                var myLi=document.createElement('li')
+                var myA1=document.createElement('a')
+                var myA2=document.createElement('a')
+                myA1.textContent = "@admin"
+                myA1.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user)
+                myA2.textContent="@"+mg.room_name
+                myA2.href="{% url 'public_chat:chatroom' 354354 %}".replace("354354", mg.room_id)
+                const texT1 = document.createTextNode(' of ');
+                const texT2 = document.createTextNode(' group chat removed group image.')
+                myLi.appendChild(myA1)
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA2)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+        
+                
+            else if ( mg.body == "user freezed chat"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user;
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user);
+                const texT = document.createTextNode(' froze chat with you.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+            else if ( mg.body == "user unfroze chat"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user;
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user);
+                const texT = document.createTextNode(' unfroze chat with you.');
+                myLi.appendChild(myA)
+                myLi.appendChild(texT)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+        
+                
+            else if ( mg.body == "friend profileimg change"){
+                var myLi=document.createElement('li')
+                var myA=document.createElement('a')
+                myA.textContent = "@"+mg.from_user;
+                myA.href = "{% url 'friend:profile' 354354 %}".replace("354354", mg.from_user);
+                const texT1 = document.createTextNode('your friend ');
+                const texT2 = document.createTextNode(' updated his profile picture');
+                myLi.appendChild(texT1)
+                myLi.appendChild(myA)
+                myLi.appendChild(texT2)
+                notification_ul.insertBefore(myLi, notification_ul.firstChild)  }
+                
+                
+
+                
+        }
+
+        Notificationsocket.onerror=function(e){
+            console.error("error.........",e);
+        }
+
+        Notificationsocket.onclose=function(e){
+            console.log('disconnect...................');
+        }
+
+        
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+{% endblock content %}

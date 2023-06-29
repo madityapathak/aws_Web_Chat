@@ -1,0 +1,64 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/createroom.css' %}">
+</head>
+<body>
+
+  <div class="full-div">
+    <div class="room-form-container">
+      
+
+
+    <form id="form" action="" method="POST">
+      {% csrf_token %}
+      <div>
+        <ul>
+          <li><label for="room_name">Room Name:</label></li>
+          <li><input required type="text" id="room_name" name="room_name"></li>
+        </ul>
+      </div>
+
+      <div>
+        <ul>
+          <li><label for="room_topic">Topic:</label></li>
+          <li><input required type="text" id="room_topic" name="room_topic"></li>
+        </ul>
+      </div>
+      
+      <div>
+        <ul>
+          <li><label for="description">Description:</label></li>
+          <li><textarea required cols="20" rows="10" id="description" name="description"></textarea></li>
+        </ul>
+      </div>
+
+      <div class="submit-btn">
+        <input type="submit" value="submit"><br>
+      </div>
+      
+    </form>
+
+
+
+      
+    </div>
+  </div>
+
+    
+</body>
+</html>
+
+<script src="{% static 'js/createroom.js' %}"></script>
+
+
+{% endblock content %}

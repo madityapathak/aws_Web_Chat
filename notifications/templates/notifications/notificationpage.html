@@ -1,0 +1,172 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+{% include "notifications/snippets/notification_delete.html" %}
+{% include "notifications/snippets/seennotification.html" %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/notification.css' %}">
+</head>
+<body>
+
+
+  <div class="notification-outer-conatiner">
+
+    <div class="notification-container">
+      <div class="notification-utils">
+        <ul>
+          <li>
+            <p>unseen notifications - {{ count }}</p>
+          </li>
+          {% if notifications %}
+          <li>
+            <a href="{% url 'notifications:delete-all-notifications' %}">clear all</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+
+
+      <div class="notification-inner-conatiner">
+        <ul>
+          {% if notifications %}
+          {% for notification in notifications %}
+          <li onclick="notification_seen('{{notification.id}}')">
+            <div class="actual-notification">
+              <p>
+                {% if notification.type == 1 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> sent you friend request.
+                {% elif notification.type == 2 %}
+                    you sent friend request to <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 3 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> removed you from his friends list
+                {% elif notification.type == 4 %}
+                    you removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from your friends list
+                {% elif notification.type == 5 %}
+                    you accepted friend request of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 6 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> accepted your friend request
+                {% elif notification.type == 7 %}
+                    you declined friend request of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 8 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> declined your friend request
+                {% elif notification.type == 9 %}
+                    you cancled friend request sent to <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 10 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> cancled friend request sent to you
+                {% elif notification.type == 11 %}
+                    you were removed from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+                {% elif notification.type == 12 %}
+                    <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 13 %}
+                    you removed <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 14 %}
+                    your messages were restricted in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+                {% elif notification.type == 15 %}
+                    <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> restricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 16 %}
+                    you restricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 17 %}
+                    your messages were unrestricted in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+                {% elif notification.type == 18 %}
+                    <a href="{% url 'friend:profile' notification.room_group.host.username %}">@admin</a> unrestricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 19 %}
+                    you unrestricted messages of <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> in <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 20 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> joined <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 21 %}
+                    you joined <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 22 %}
+                    you created <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 23 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> left from <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 24 %}
+                    you left <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 25 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat left the group
+                {% elif notification.type == 26 %}
+                    you left <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat but you are still admin of the group you can delete the room if you want
+                {% elif notification.type == 27 %}
+                    <a href="" >@{{notification.room_name}}</a> group chat was deteted by <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a>
+                {% elif notification.type == 28 %}
+                    you deleted <a href="" >@{{notification.room_name}}</a> group chat
+                {% elif notification.type == 29 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> updated <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat details
+                {% elif notification.type == 30 %}
+                    you updated <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat details
+                {% elif notification.type == 31 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat updated group image
+                {% elif notification.type == 32 %}
+                    you changed image of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 33 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@admin</a> of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat removed group image
+                {% elif notification.type == 34 %}
+                    you removed image of <a href="{% url 'public_chat:chatroom' notification.room_group.id %}">@{{notification.room_group.name}}</a> group chat
+                {% elif notification.type == 35 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> froze chat with you
+                {% elif notification.type == 36 %}
+                    you froze chat with <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 37 %}
+                    you unfroze chat with <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a>
+                {% elif notification.type == 38 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> unfroze chat with you
+                {% elif notification.type == 39 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@you</a> updated your profile pic
+                {% elif notification.type == 40 %}
+                    your friend <a href="{% url 'friend:profile' notification.from_user.username %}">@{{notification.from_user.username}}</a> updated his profile picture
+                {% elif notification.type == 41 %}
+                    Hi! there, <a href="{% url 'friend:profile' notification.from_user.username %}">@ {{notification.for_user.first_name}} {{notification.for_user.last_name}}</a>, your account was created successfully
+                {% elif notification.type == 42 %}
+                    <a href="{% url 'friend:profile' notification.from_user.username %}">@your</a> about details were updated successfully
+                {% else %}
+                    {{notification.body}}
+                {% endif %}
+ 
+              <button onclick="show_delete_form('{{notification.id}}',this)">X</button></p>
+            </div>
+            </li>
+            <div class="delete-confirm">
+              <form hidden id="{{notification.id}}" onsubmit="return cancelForm(event)">
+                <p>are you sure you want to delete this notification
+                <a href="">no</a> <button onclick="delete_notification('{{notification.id}}',this)">confirm</button> </p>
+              </form>
+            </div>
+          
+          {% endfor %}
+          {% else %}
+          <li class="no-notification">
+            <p>you dont have any notifications</p>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    
+  </div>
+
+</body>
+</html>
+
+
+<script type="text/javascript" src="{% static 'js/jquery-3.6.1.js' %}" ></script>
+<script>
+    function cancelForm(event) {
+    event.preventDefault();
+    return false;   }
+    
+    function show_delete_form(id,element){
+        var to_show=document.getElementById(id)
+            to_show.style.display='flex';
+            element.style.display = "none"    }
+</script>
+
+{% endblock content %}

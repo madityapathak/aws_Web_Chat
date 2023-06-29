@@ -1,0 +1,18 @@
+
+<script>
+
+	function send_request(id,element){
+		element.disabled = true;
+		const payload=new FormData;
+		payload.append('csrfmiddlewaretoken','{{ csrf_token }}')
+		payload.append("user_id", id)
+		var xhr=new XMLHttpRequest();
+		var url = "{% url 'friend:send-request' %}";
+		xhr.open("POST",url);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				location.reload()	}	}
+		xhr.send(payload);	}
+
+</script>
+

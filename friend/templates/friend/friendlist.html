@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/friend_list.css' %}">
+</head>
+
+<body>
+  {% if friends %}
+  <div class="outer-container">
+    <div class="user-container">
+      {% for friend in friends %}
+      <div class="actual-user">
+        <div class="image-div">
+          <img src="{{ friend.profile_image.url }}">
+        </div>
+        <div class="name-container">
+          <p><a href="{% url 'friend:profile' friend.username %}">{{ friend.first_name }} {{ friend.last_name }}</a></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="inacc-outer-div">
+    <div class="holder-msg">
+      <p>no friends yet</p>
+    </div>
+  </div>
+  {% endif %}
+
+</body>
+</html>
+
+{% endblock content %}

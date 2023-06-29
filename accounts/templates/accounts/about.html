@@ -1,0 +1,111 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+<body>
+
+
+  <div class="body-container">
+    <div class="content-container">
+
+      <div class="warning-div">
+        <div class="heading"><p>!!! warning !!!</p></div>
+        <div class="warning-text">
+          <p>This web application is in BETA, please do not share any personal information.</p>
+          <p>This is a BETA web application, please avoid malicious tasks.</p>
+        </div>
+      </div>
+
+
+
+      
+      <div class="dev-detail">
+        <div class="heading-dev">
+          <p>Developer Details</p>
+        </div>
+        <div class="dev-details">
+          <div class="dev-img-container">
+            <img src="{% static 'icons/developer.jpg' %}" alt="developer">
+          </div>
+          <div class="detail-lst">
+            <div class="ul-div">
+              <ul class="ul-list">
+                <li><p>Developer</p></li>
+                <li><p>Aditya Kumar Pathak</p></li>
+              </ul>
+            </div>
+            <div class="ul-div">
+              <ul class="ul-list">
+                <li><p>Skills</p></li>
+                <li><p>HTML, CSS, JAVASCRIPT, JQUERY, PYTHON, DJANGO, SQL</p></li>
+              </ul>
+            </div>
+            <div class="ul-div">
+              <ul class="ul-list">
+                <li><p>Contact</p></li>
+                <li><p>email me at webchat.reset@gmail.com, or <a href="{% url 'friend:profile' 'aditya' %}">My_Profile</a> </p></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="description-div">
+            <p>I have good understanding of Python, JavaScript, Html and CSS. My ability to work in a team as well as handling stand-alone projects is impressive. For me, making websites using Django is fun because in doing so I face new challenges and overcoming those challenges helps me in improving my skills and my understanding of how websites work. I am always ready to try new technologies and enhance my skills. I have good communication as well as presentation skills. You can checkout this website to have a better understanding of my skills in website development.</p>
+            <br><p>I hope I have what it takes to get me an opportunity to work with you or with your organization.</p>
+          </div>
+
+        </div>
+      </div>
+
+
+      
+
+      <div class="about-website">
+        <div class="heading-dev"><p>About Website</p></div>
+        <div class="about-website-div"><p>This web application is developed using -</p></div>
+
+        <div class="about-website-details">
+          <div class="languages-div">
+            <ul class="ul-list">
+              <li><p>Front End</p></li>
+              <li><p>HTML, CSS, JAVASCRIPT, JQUERY</p></li>
+            </ul>
+          </div>
+          <div class="languages-div">
+            <ul class="ul-list">
+              <li><p>Backend</p></li>
+              <li><p>PYTHON, DJANGO</p></li>
+            </ul>
+          </div>
+          <div class="languages-div">
+            <ul class="ul-list">
+              <li><p>Database</p></li>
+              <li><p>mySQL using DJANGO ORM</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      
+      
+    </div>
+  </div>
+
+
+</body>
+</html>
+
+{% endblock content %}

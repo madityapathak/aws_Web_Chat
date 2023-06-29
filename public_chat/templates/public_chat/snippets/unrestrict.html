@@ -1,0 +1,55 @@
+<script>
+
+	function unrestrict_user(room_id,user_id,element){
+		element.disabled = true;
+		const payload=new FormData;
+		payload.append('csrfmiddlewaretoken','{{ csrf_token }}')
+		payload.append("room_id", room_id)
+		payload.append("unrestricted_id",user_id)
+		var xhr=new XMLHttpRequest();
+		var url = "{% url 'public_chat:unrestrict-message' %}";
+		xhr.open("POST",url);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				location.reload()	}	}
+		xhr.send(payload);	}
+
+</script>
+
+<!-- 
+<script type="text/javascript">
+	
+	function unrestrict_user(room_id,user_id,element){
+		element.disabled = true;
+		
+		payload = { 
+				"csrfmiddlewaretoken": "{{ csrf_token }}",
+				"room_id": room_id,
+                "unrestricted_id":user_id
+			}
+		$.ajax({
+			
+			type: 'POST',
+			dataType: "json",
+			url: "{% url 'public_chat:unrestrict-message' %}",
+			data: payload,
+			timeout: 5000,
+			
+			success: function(data) {
+				console.log("success...........")
+				},
+					
+			error: function(data) {
+				console.error("error................")
+			    },
+			complete: function(data){
+				// console.log("complete...........")
+				location.reload()
+				}	
+			});
+			
+		
+	}
+	
+
+</script> -->

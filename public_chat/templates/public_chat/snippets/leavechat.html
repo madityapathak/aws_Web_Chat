@@ -1,0 +1,53 @@
+<script>
+
+	function leave_room(id,element){
+		element.disabled = true;
+		const payload=new FormData;
+		payload.append('csrfmiddlewaretoken','{{ csrf_token }}')
+		payload.append('room_id',id)
+		var xhr=new XMLHttpRequest();
+		var url = "{% url 'public_chat:leave-room' %}";
+		xhr.open("POST",url);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				location.reload()	}	}
+		xhr.send(payload);	}
+
+</script>
+
+<!-- 
+<script type="text/javascript">
+	
+	function leave_room(id,element){
+		element.disabled = true;
+		
+		payload = { 
+				"csrfmiddlewaretoken": "{{ csrf_token }}",
+				"room_id": id,
+			}
+		$.ajax({
+			
+			type: 'POST',
+			dataType: "json",
+			url: "{% url 'public_chat:leave-room' %}",
+			data: payload,
+			timeout: 5000,
+			
+			success: function(data) {
+				console.log("success...........")
+				},
+					
+			error: function(data) {
+				console.error("error................")
+			    },
+			complete: function(data){
+				// console.log("complete...........")
+				location.reload()
+				}	
+			});
+			
+		
+	}
+	
+
+</script> -->

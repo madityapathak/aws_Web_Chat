@@ -1,0 +1,189 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/public.css' %}">
+</head>
+<body>
+
+
+
+
+
+
+
+    <div class="public-container">
+      <div class="first-div">
+          <div class="hidden-btn" id="back-btn">
+              <h4>BACK</h4>
+          </div>
+          <div id="first-div">
+              <h4>YOUR ROOMS</h4>
+
+
+
+
+
+              
+
+
+              
+
+
+            {% if user_rooms %}
+            {% for room in user_rooms %}
+              <div class="first-div-container">
+                  <div class="first-first-div">
+                      <div class="first-column">
+                          <div class="align-left">
+                              <img class="margin-right" src="{{room.host.profile_image.url}}">
+                              <a href="{% url 'friend:profile' room.host.username %}">@host</a>
+                          </div>
+                          <div class="align-right">
+                              <p><small>{{room.created|timesince}} ago</small></p>
+                          </div>
+                      </div>
+                      <div><a href="{% url 'public_chat:chatroom' room.id %}">{{room.name}}</a></div>
+                      <div class="participants-column">
+                        
+                        {% for participant in room.participants.all %}
+                            {% if forloop.counter < 10 %}
+                                <img src="{{participant.profile_image.url}}">
+                            {% endif %}
+                        {% endfor %}
+                        
+                      </div>
+                      <div class="first-column">
+                          <div class="align-left">{{room.participants.all.count}} joined</div>
+                          <div class="align-right-end">{{room.topic}}</div>
+                      </div>
+                  </div>
+
+
+                  <div class="first-second-div">
+
+                      <img src="{{room.room_image.url}}">
+
+                  </div>
+              </div>
+              <br>
+
+
+
+            {% endfor %}
+            {% endif %}         
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+              
+          </div>
+      </div>
+      <div class="second-div">
+          <div id="first-row">
+              <div>
+                  <form method="GET" action="{% url 'public_chat:home' %}">
+                      <input type="text" name="q" id="" placeholder="Search rooms">
+                  </form>
+              </div>
+              <div id="room-creation-btn">
+                  <a href="{% url 'public_chat:create-room' %}"><p>CREATE ROOM</p></a>
+              </div>
+          </div>
+          <div id="view-your-rooms">
+              <h4>YOUR ROOMS</h4>
+          </div>
+          <div id="room-division">
+              
+
+            {% if show_search_results %} 
+                {% if total_rooms %}
+                    <p>search results -  {{total_rooms}} rooms found</p>
+                {% else %}
+                    <p>search results - no rooms found</p>
+                {% endif %}
+            {% else %}
+                <p>public rooms</p>
+            {% endif %}
+
+
+
+
+
+            
+
+
+            {% if public_rooms %}
+                {% for room in public_rooms %}
+                    <div>
+                        <div class="public-card">
+                            <div class="first-row-public">
+                                <div class="align-left">
+                                    <img class="margin-right" src="{{room.host.profile_image.url}}">
+                                    <a href="{% url 'friend:profile' room.host.username %}">host@{{room.host.first_name}}</a>
+                                </div>
+                                <div>
+                                    <li><small>{{room.created|timesince}} ago</small></li>
+                                </div>
+                            </div>
+                            <div><a href="{% url 'public_chat:chatroom' room.id %}">{{room.name}}</a></div>
+                            <div>{{room.description}}</div>
+                            <div class="last-line">
+                                <li>{{room.topic}}</li>
+                                <li><smal style="font-size: 12px; text-transform: lowercase;">{{room.participants.all.count}} joined</smal></li>
+                            </div>
+                        </div>
+                        <div class="public-card-image">
+                            <img src="{{room.room_image.url}}">
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+      </div>
+  </div>
+
+
+  <script src="{% static 'js/public.js' %}"></script>
+</body>
+</html>
+  
+{% endblock content %}

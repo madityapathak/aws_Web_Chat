@@ -1,0 +1,243 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include "private_chat/snippets/deleteconvo.html" %}
+{% include "private_chat/snippets/freeze.html" %}
+{% include "private_chat/snippets/unfreeze.html" %}
+<link rel="stylesheet" href="{% static 'css/private_chat.css' %}">
+
+<html>
+<body>
+
+    <div class="public-chat-container">
+        
+        <div class="chat-box-div">
+
+        
+            <div class="sec-col">
+
+                <div class="chat-with-user">
+                    <div class="chat-with-user-image">
+                        <img src="{{heading_user.profile_image.url}}">
+                    </div>
+                        
+                    <div class="chat-with-user-name">
+                        <p><a href="{% url 'friend:profile' heading_user.username %}">@{{heading_user.first_name}}</a></p>
+                    </div>
+                </div>
+                <div class="sec-col-end-part">
+                {% if freeze_status == 'unfreezed' %}
+                <div class="leave-clear"><input type="submit" value="freeze chat" onclick="freeze('{{room_id}}',this)"></div>
+                {% endif %}
+                <div class="leave-clear"><input type="submit" value="clear convo" onclick="show_delete_form(this)"></div>
+                {% if freeze_status == 'freezed' and freezer == me %}
+                <div class="leave-clear"><input type="submit" value="unfreeze chat" onclick="unfreeze('{{room_id}}',this)"></div>
+                {% endif %}
+                </div>
+            </div>
+
+            <div class="third-col">
+                <form id="clear-confirm" onsubmit="return cancelForm(event)">
+                    <div><p>are you sure yo want to clear conversation</p></div>
+                    <div>
+                        <div><a href="">no</a></div>
+                        <div><input type="submit" value="confirm" onclick="delete_convo('{{room_id}}',this)"></div>
+                    </div>
+                </form>
+            </div>
+
+
+            <script>
+                function cancelForm(event) {
+                event.preventDefault();
+                return false;   }
+                var clear_confirm = document.getElementById('clear-confirm')
+                clear_confirm.style.display="none";
+                function show_delete_form(element){
+                    element.style.display = "none" 
+                    clear_confirm.style.display="flex";
+                }
+            </script>
+
+            <div>
+            
+                <div id="actual-chat-container" class="actual-chat-container">
+
+                    {% for message in messages %}
+                    {% if message.user == request.user %}
+                    <ul class="your-msg">
+                        <li id="21{{message.id}}adi" class="text-body" onclick="show_detail('{{message.id}}')">{{message.body}}</li>
+            
+                        <li hidden id="{{message.id}}" class="text-detail"><a class="msg-usr" href="{% url 'friend:profile' message.user.username %}">@{{ message.user.first_name }} {{ message.user.last_name }}</a>, updated {{message.update_status}} times,Last updated-{{message.updated}}
+                            {% if message.user == request.user %}
+                                {% if message.is_seen %}
+                                    *(seen)
+                                {% else %}
+                                    *(not seen)
+                                {% endif %}
+                            {% endif %} 
+
+
+                            {% if request.user == message.user %}
+                            <a href="{% url 'private_chat:delete-a-message' message.id %}">delete</a>
+                            {% if freeze_status == 'unfreezed' %}
+                            <input type="submit" value="edit" onclick="edit('{{message.id}}')">
+                            {% endif %}
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% else %}
+                    
+                    <ul class="others-msg">
+                        <li id="21{{message.id}}adi" class="text-body" onclick="show_detail('{{message.id}}')">{{message.body}}</li>
+            
+                        <li hidden id="{{message.id}}" class="text-detail"><a class="msg-usr" href="{% url 'friend:profile' message.user.username %}">@{{ message.user.first_name }} {{ message.user.last_name }}</a>, updated {{message.update_status}} times,Last updated-{{message.updated}}
+                            {% if message.user == request.user %}
+                                {% if message.is_seen %}
+                                    *(seen)
+                                {% else %}
+                                    *(not seen)
+                                {% endif %}
+                            {% endif %} 
+
+
+                            {% if request.user == message.user %}
+                            <a href="{% url 'private_chat:delete-a-message' message.id %}">delete</a>
+                            {% if freeze_status == 'unfreezed' %}
+                            <input type="submit" value="edit" onclick="edit('{{message.id}}')">
+                            {% endif %}
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    {% endfor %}
+
+                </div>                
+            </div>
+            <script>
+                function show_detail(id){
+                    var elemen_t= document.getElementById(id)
+                    if(elemen_t.style.display=="none"){elemen_t.style.display="block"}
+                    else{elemen_t.style.display="none"}
+                }
+            </script>
+
+
+            {% if freeze_status == 'unfreezed' %}
+            <div>
+                <form method="POST" id="form">
+                    {% csrf_token %}
+                    <textarea id="message" name="body" ></textarea>
+                    <input class="send-btn" type="submit" value="send" id="messageinput">
+                </form>
+            </div>
+
+
+
+            <div>    
+                <form method="POST" id="edit-form" action="{% url 'private_chat:edit-message' %}">
+                    {% csrf_token %}
+                    <textarea  id='edit-message' name="body" ></textarea>
+                    <input type="hidden" name="msg_id" id="edit-msg-id">
+                    <a class="discard-edit-btn" href="">discard edit</a>
+                    <input class="confirm-edit-btn" type="submit" value="confirm edit">
+                </form>
+            </div>
+            {% endif %}
+        </div>
+
+        <script>
+            var edit_form = document.getElementById('edit-form')
+            if (edit_form !== null ){
+            edit_form.style.display='none';}
+            function edit(id){
+                const paragraph = document.getElementById("21"+id+"adi");
+		        const tex_t = paragraph.textContent;
+
+                var for_m = document.getElementById('form')
+                for_m.style.display="none";
+                edit_form.style.display='flex';
+                var edit_msg = document.getElementById('edit-message')
+                edit_msg.value=tex_t
+                var edit_mg_id = document.getElementById('edit-msg-id')
+                edit_mg_id.value=id
+                }
+        </script>
+
+
+    </div>
+</body>
+
+<script src="{% static 'js/private_chat.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/reconnecting-websocket.js' %}"></script>
+
+
+    <script>
+        // var loc = window.location
+        // var wsStart = 'ws://'
+        // if (loc.protocol== 'https:'){
+        //     wsStart='wss://'    }
+        // var endpoint= wsStart + loc.host + loc.pathname
+
+
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        // if ("{{ debug_mode }}") {
+        //     var endpoint = ws_scheme + '://' + window.location.host + window.location.pathname; }
+        // else {
+        var endpoint = ws_scheme + '://' + window.location.host + ":8001" + window.location.pathname; 
+    //  }
+
+
+        var chatsocket = new ReconnectingWebSocket(endpoint);
+        var submit = document.getElementById('messageinput');
+        var form=document.getElementById('form');
+        var msg=document.getElementById('message');
+        var lst=document.getElementById('actual-chat-container');
+        lst.scrollTop = lst.scrollHeight;
+        
+        
+        chatsocket.onopen= function(e){
+            if (form !== null) {
+            form.addEventListener('submit',function(event){
+                event.preventDefault();
+                var ms=msg.value
+                if(ms.trim().length){
+                    var data= {
+                        'message' : ms  }
+                    chatsocket.send(JSON.stringify(data))
+                    form.reset()    }
+                })  }
+            }
+
+        chatsocket.onmessage= function(e){
+            mg=JSON.parse(e.data)
+            if('{{request.user.email}}'== mg.user){
+                var myUl=document.createElement('ul')
+                myUl.classList.add('your-msg')
+                var myLi=document.createElement('li')
+                myLi.classList.add('text-body')
+                myLi.textContent=mg.message
+                myUl.appendChild(myLi)
+                lst.appendChild(myUl)   }
+            else{
+                var my_Ul=document.createElement('ul')
+                my_Ul.classList.add('others-msg')
+                var my_Li=document.createElement('li')
+                my_Li.classList.add('text-body')
+                my_Li.textContent=mg.message
+                my_Ul.appendChild(my_Li)
+                lst.appendChild(my_Ul)    }
+                lst.scrollTop = lst.scrollHeight;
+        }
+
+        chatsocket.onerror=function(e){
+            console.error("error.........");
+        }
+
+        chatsocket.onclose=function(e){
+            console.log('disconnect...................');
+        }
+</script>
+</html>
+{% endblock content %}

@@ -1,0 +1,38 @@
+
+
+
+<script type="text/javascript">
+	
+	function delete_notification(id,element){
+		element.disabled = true;
+		
+		payload = { 
+				"csrfmiddlewaretoken": "{{ csrf_token }}",
+				"id": id,
+			}
+		$.ajax({
+			
+			type: 'POST',
+			dataType: "json",
+			url: "{% url 'notifications:delete-notification' %}",
+			data: payload,
+			timeout: 5000,
+			
+			success: function(data) {
+				console.log(data)
+				},
+					
+			error: function(data) {
+				console.error("error................",data)
+			    },
+			complete: function(data){
+				
+				location.reload()
+				}	
+			});
+			
+		
+	}
+	
+
+</script>

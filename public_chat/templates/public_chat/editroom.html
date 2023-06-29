@@ -1,0 +1,229 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+{% include "public_chat/snippets/removeroomimage.html" %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'cropperjs/dist/cropper.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/update_room.css' %}">
+</head>
+<body>
+
+  <div class="edit-page-container">
+    <div class="backend-messages">
+      {% if messages %}
+        <ul> 
+          {% for message in messages %}
+            <li><p>{{message}}</p></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="outer-profile-div">
+      <div class="profile-container">
+        <div class="cancle-conf-div">
+          <ul>
+            <li><a id="id_cancle" href="">cancle crop</a></li>
+            <li><input hidden type="submit" value="crop confirm" id="id_confirm"></li>
+          </ul>
+        </div>
+        <div class="profile-image-container">
+          <img id="id_room_image_display" src="{{ room.room_image.url }}" alt="default room image">
+        </div>
+        <div class="edit-btn-holder">
+          <input type="submit" value="edit" id="edit" onclick="edit_click()">
+        </div>
+        {% if show_remove_image_button %}
+        <div class="remove-img-btn-holder">
+          <input type="submit" value="remove room image" id="remove_image" onclick="remove_room_image('{{room.id}}',this)">
+        </div>
+        {% endif %}
+        <div hidden >
+          <!-- this form will be hidden -->
+          <form hidden method="POST" >
+            {% csrf_token %}
+            <input hidden type="file" name="room_image" id="id_room_image" onchange="readURL(this)">
+          </form>
+        </div>
+        <div class="edit-user-form">
+          <!-- this is the from by django backend -->
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{room_update_form.as_p}}
+            {% if request.user == room.host %}
+            <input class="form-save-btn" type="submit" value="save">
+            {% endif %}
+            <br>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="{% static 'js/jquery-3.6.1.js' %}" ></script>
+<script type="module" src="{% static 'cropperjs/dist/cropper.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+
+  var confirm = document.getElementById("id_confirm")
+      confirm.addEventListener("click", function(event){
+  
+        confirm.disabled = true;
+        
+        console.log("Sending crop data for processing...")
+        cropImage(
+          imageFile, 
+          cropX, 
+          cropY, 
+          cropWidth,
+          cropHeight
+        )
+      })
+  
+  
+  
+  
+  
+      
+      function edit_click(){
+      $("#id_room_image").click()
+  }
+   function show_crop_options(){
+      $('#id_confirm').show();
+      $('#id_cancle').show();
+      $("#edit").hide();
+   }
+  
+      var cropper;
+    var imageFile;
+    var base64ImageString;
+    var cropX;
+    var cropX;
+    var cropWidth;
+    var cropHeight;
+  
+  
+   function readURL(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+  
+              reader.onload = function (e) {
+                  var img = new Image()
+                  img.src=e.target.result
+                  img.onload = function() {
+                show_crop_options()
+                var image = e.target.result
+                var imageField = document.getElementById('id_room_image_display')
+                  imageField.src = image  
+  
+  
+                  cropper = new Cropper(imageField,{
+            aspectRatio: 1/1,
+            viewMode: 1,
+            crop(event) {
+              
+              setImageCropProperties(
+                image,
+                event.detail.x,
+                event.detail.y,
+                event.detail.width,
+                event.detail.height
+              )
+            },
+          });
+              
+              
+              
+              
+              }
+                  
+                  img.onerror = function() {
+                      alert('Invalid image file'); }
+  
+              }
+              reader.readAsDataURL(input.files[0])
+          }}
+  
+  function setImageCropProperties(image, x, y, width, height){
+      imageFile = image
+      cropX = x
+      cropY = y
+      cropWidth = width
+      cropHeight = height
+    }
+  
+  
+  
+  
+  
+  
+    function isImageSizeValid(image){
+      console.log("max size: {{DATA_UPLOAD_MAX_MEMORY_SIZE}}")
+      var startIndex = image.indexOf("base64,") + 7;
+      var base64str = image.substr(startIndex);
+      var decoded = atob(base64str);
+      console.log("FileSize: " + decoded.length);
+      if(decoded.length>= "{{DATA_UPLOAD_MAX_MEMORY_SIZE}}"){
+        return null
+      }
+      return base64str
+    }
+  
+    function cropImage(image, x, y, width, height){
+      base64ImageString = isImageSizeValid(image)
+  
+      if(base64ImageString != null){
+        var requestData = {
+          "csrfmiddlewaretoken": "{{ csrf_token }}",
+          "image": base64ImageString,
+          "cropX": cropX,
+          "cropY": cropY,
+          "cropWidth": cropWidth,
+          "cropHeight": cropHeight,
+          "id" : "{{room.id}}"
+        }
+        
+        $.ajax({
+          type: 'POST',
+          dataType: "json",
+          url: "{% url 'public_chat:crop-image' room_id=room.id %}",
+          data: requestData,
+          timeout: 10000,
+          success: function(data) {
+            if(data.result == "success"){
+              location.reload()
+            }
+            else if(data.result == "error"){
+              alert(data.exception)
+              location.reload()
+            }
+          },
+          error: function(data) {
+            console.error("ERROR...", data)
+          },
+          complete: function(data){
+            console.log("complete.....")
+          }
+        });
+      }
+      else{
+        alert("Upload an image smaller than 5 MB");
+        $("#id_cancel").click()
+      }
+    }
+  
+  
+  </script>
+
+  {% endblock content %}

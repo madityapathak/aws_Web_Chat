@@ -1,0 +1,418 @@
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+html{
+    font-size: 1vw;
+}
+body{
+    background-color: #3c3c3c;
+}
+
+.public-chat-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.chat-box-div{
+    width: 96%;
+}
+.sec-col{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.chat-with-user{
+    width: 38%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.chat-with-user-image{
+    width: fit-content;
+    display: contents;
+    
+}
+.chat-with-user-image img{
+    margin-right: 2%;
+    aspect-ratio: 1/1;
+    display: block;
+    width: 3rem;
+    border-radius: 50%;
+}
+.chat-with-user-name{
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+}
+.chat-with-user-name p a{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    color: #d2caff;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+
+.sec-col-end-part{
+    width: 58%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+.leave-clear{
+    margin-left: 3rem;
+}
+.leave-clear input{
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 0.5rem;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+}
+
+
+
+.third-col{
+    width: 100%;
+    margin-top: 1%;
+}
+.third-col form{
+    background: aliceblue;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+}
+
+.third-col form div{
+    margin-bottom: 0.5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.third-col form div p{
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.third-col form div a{
+    color: white;
+    font-size: 1rem;
+    padding: 0.4rem;
+    letter-spacing: 0.1rem;
+    background-color: green;
+    text-transform: capitalize;
+}
+.third-col form div input{
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 0.4rem;
+    background-color: red;
+    text-transform: capitalize;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+}
+
+.actual-chat-container{
+    margin: 0.8rem auto;
+    overflow: auto;
+    height: 68vh;
+    width: 100%;
+    overflow: auto;
+}
+.your-msg{
+    align-content: end;
+    display: flex;
+    flex-flow: column wrap;
+}
+.others-msg{
+    align-content: start;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.text-body{
+    font-size: 1.4rem;
+    white-space: pre-wrap;
+    text-align: justify;
+    word-wrap: break-word;
+    margin-top: 0.7%;
+    max-width: 65%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 1.5%;
+    border-radius: 1rem;
+}
+
+.text-detail{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+    font-size: 1rem;
+    padding-left: 1.5%;
+    margin-top: 0.8%;
+    margin-left: 2%;
+    margin-right: 2%;
+    max-width: 65%;
+}
+
+.msg-usr{
+    color: #00f3ff !important;
+    background-color: unset !important;
+    padding: 0 !important;
+    margin: auto !important;
+    text-transform: capitalize !important;
+}
+.others-msg .text-body{
+    background-color: #a99d9d;
+}
+  
+.your-msg .text-body{
+    background-color: #bad8e3e3;
+}
+.text-detail a{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    margin: auto 3%;
+    color: white;
+    padding: 1% 2%;
+    background-color: red;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.text-detail input{
+    border-width: 0px;
+  border-style: none;
+  border-image: none;
+  color: black;
+  padding: 1% 2%;
+  background-color: yellow;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+}
+
+
+#form{
+    display: flex;
+    justify-content: space-between;
+}
+#form textarea{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    font-size: 1.3rem;
+    width: 82%;
+    margin-left: 2%;
+}
+
+#form input{
+    height: fit-content;
+    margin-right: 2%;
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 0.8rem;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+}
+
+#edit-form{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#edit-form textarea{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    font-size: 1.3rem;
+    width: 82%;
+    margin-left: 2%;
+    margin-bottom: 0.8%;
+}
+
+#edit-form input{
+    height: fit-content;
+    margin-right: 2%;
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 0.8rem;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+}
+
+#edit-form a{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    margin: auto 3%;
+    color: white;
+    padding: 1% 2%;
+    background-color: green;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+
+@media only screen and (max-width:1000px){
+    html{
+        font-size: 1.4vw;
+    }
+    #edit-form a{
+        padding: 1.7% 2%;
+    }
+}
+
+@media only screen and (max-width:800px){
+    html{
+        font-size: 1.6vw;
+    }
+    #edit-form a{
+        padding: 1.7% 2%;
+    }
+}
+@media only screen and (max-width:670px){
+    html{
+        font-size: 1.8vw;
+    }
+    #edit-form a{
+        padding: 2% 2%;
+    }
+    .chat-with-user {
+        width: 47%;
+    }
+    .sec-col-end-part {
+        width: 51%;
+    }
+}
+
+@media only screen and (max-width:590px){
+    html{
+        font-size: 1.9vw;
+    }
+    #edit-form a{
+        padding: 2% 2%;
+    }
+}
+
+@media only screen and (max-width:550px){
+    html{
+        font-size: 2.2vw;
+    }
+    .leave-clear {
+        margin-left: 0;
+    }
+    .sec-col {
+        flex-flow: column wrap;
+        align-items: center;
+    }
+    .chat-with-user{
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.8%;
+    }
+    #edit-form a{
+        padding: 2.2% 2%;
+    }
+}
+
+@media only screen and (max-width:470px){
+    html{
+        font-size: 2.5vw;
+    }
+    .third-col form div p{
+        font-size: 1.2rem;
+    }
+    .sec-col-end-part {
+        width: 73%;
+    }
+    .text-detail{
+        font-size: 1.1rem;
+    }
+    #edit-form a{
+        padding: 2.5% 2%;
+    }
+}
+
+@media only screen and (max-width:410px){
+    html{
+        font-size: 2.7vw;
+    }
+    .chat-with-user-name p a {
+        font-size: 1.7rem;
+        letter-spacing: 0.1rem;
+    }
+    #edit-form a{
+        padding: 2.7% 2%;
+    }
+}
+
+@media only screen and (max-width:390px){
+    html{
+        font-size: 3vw;
+    }
+    .text-detail {
+        line-height: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .text-detail a {
+        padding: 2.2% 3.2%;
+    }
+    .text-detail input{
+        padding: 2% 4%;
+    }
+    #form textarea {
+        width: 78%;
+    }
+    #edit-form textarea {
+        width: 78%;
+    }
+}
+
+@media only screen and (max-width:310px){
+    html{
+        font-size: 3.4vw;
+    }
+}

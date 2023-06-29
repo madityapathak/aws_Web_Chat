@@ -1,0 +1,37 @@
+
+
+
+<script type="text/javascript">
+	
+	function notification_seen(id){
+		
+		
+		payload = { 
+				"csrfmiddlewaretoken": "{{ csrf_token }}",
+				"id": id,
+			}
+		$.ajax({
+			
+			type: 'POST',
+			dataType: "json",
+			url: "{% url 'notifications:seen-status' %}",
+			data: payload,
+			timeout: 5000,
+			
+			success: function(data) {
+				
+				},
+					
+			error: function(data) {
+				console.error("error................")
+			    },
+			complete: function(data){
+		
+				}	
+			});
+			
+		
+	}
+	
+
+</script>

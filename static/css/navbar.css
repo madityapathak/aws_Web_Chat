@@ -1,0 +1,252 @@
+* {	
+    margin:0;
+	padding:0;
+    list-style:none;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+    
+html{
+    height:100%;
+    font-size: 1vw;
+}
+body{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+.navbar{
+    width:100%;
+    background-color: rgba(31, 29, 29, 0.87);
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:center;
+    align-items:center;
+}
+
+.navbar div a{
+    font-size: 2.5rem;
+    letter-spacing: 0.9rem;
+    color:whitesmoke;
+    text-decoration:none;
+    text-transform: uppercase;
+    }
+    
+.logo-container{
+    margin: 0.3% 7%;
+    width: 3.3%;
+    }
+.navbar img {
+    aspect-ratio: 1/1;
+    display: block;
+    width: 100%;
+    border-radius:18%;
+    }
+
+
+    
+
+.menu-btn {
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 33px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    }
+.menu-btn__burger {
+    width: 40px;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+    transition: all 0.3s ease-out;
+    }
+.menu-btn__burger::before,
+.menu-btn__burger::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+    transition: all .5s ease-in-out;
+    }
+.menu-btn__burger::before {
+    transform: translateY(-11px);
+    }
+.menu-btn__burger::after {
+    transform: translateY(11px);
+    }
+.menu-btn.open .menu-btn__burger {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+    }
+.menu-btn.open .menu-btn__burger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+    }
+.menu-btn.open .menu-btn__burger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+    }
+
+
+.container{
+    overflow:hidden;
+    width:100%;
+    background-color: rgba(31, 29, 29, 0.87);
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:space-around;
+    align-items:center;
+    transition: all 0.4s ease-out;
+}
+
+.user-logo{
+    width: 3%;
+    margin-bottom: 0.3%;
+}
+.user-logo img{
+    aspect-ratio: 1/1;
+    display: block;
+    width: 88%;
+    border-radius: 50%;
+}
+
+.container li a{
+    font-size: 1.4rem;
+	text-decoration:none;
+	color:whitesmoke;
+    letter-spacing: 0.2rem;
+    padding: 0.5rem;
+}
+.container li a:hover{
+	color: cornflowerblue;
+}
+
+.Search-form{
+    width: 24%;
+}
+
+.container form{
+    padding: 0;
+    }
+.container form input{
+    font-size: 1.2rem;
+	width: 100%;
+	height: 2rem;
+    text-align: center;
+    }
+
+
+
+.footer{
+    text-align: center;
+    margin-top: auto;
+    height: fit-content;
+    width:100%;
+    background-color:rgba(31, 29, 29, 0.87); ;
+    }
+    
+.footer p{
+    color: whitesmoke;
+    font-size:2.1rem;
+    line-height:4.5rem;
+}
+
+
+
+
+
+
+    
+@media (max-width:831px){
+    .height{
+        height: 83px !important;
+    }    
+    html{
+        font-size: 14px;
+    }
+    .menu-btn{
+        display:flex;
+    }
+    .navbar{
+        justify-content: space-around;
+    }
+    .navbar img {
+        width: 40px;
+    }
+    .navbar div a {
+        font-size: 22px;
+    }
+    .container {
+        height: 0px;
+    }
+    .container li{
+        margin: 1.2% 5%
+    }
+    .user-logo{
+        width: 40px;
+    }
+    .footer p {
+        font-size: 1.5rem;
+        line-height: 3.5rem;
+    }
+    .Search-form {
+        width: 38%;
+    }
+    .logo-container {
+        margin: 0.3% 0;
+    }
+  
+}
+
+@media (max-width:660px){
+    .height{
+        height: 86px !important;
+    } 
+    html{
+        font-size: 14px;
+    }
+    .container li {
+        margin: 1.7% 3%;
+    }
+    .Search-form {
+        width: 48%;
+    }
+    .menu-btn{
+        width:41px;
+    }
+}
+@media only screen and (max-width:460px){
+    .height{
+        height: 262px !important;
+    }
+    html {
+        font-size: 14px;
+    }
+    .menu-btn{
+        width:41px;
+    }
+    .container {
+        flex-flow: column wrap;
+    }
+    .navbar div a {        
+        margin-left: 26px;
+        font-size: 22px;
+        letter-spacing: 7px;
+    }
+    .container li {
+        margin: 2.7% 0%;
+    }
+    .Search-form {
+        width: 61%;
+    }
+    .user-logo img {
+        margin-bottom: 9px;
+    }
+    .footer p{
+        font-size: 1.3rem;
+    }
+}

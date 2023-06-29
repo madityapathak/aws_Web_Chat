@@ -1,0 +1,199 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+{% include "friend/snippets/unfriend.html" %}
+{% include "friend/snippets/cancle_request.html" %}
+{% include "friend/snippets/send_request.html" %}
+{% include "friend/snippets/accept.html" %}
+{% include "friend/snippets/decline.html" %}
+{% include "friend/snippets/emailstatus.html" %}
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<body>
+  <div class="main-div">
+    <div class="backend-messages">
+      {% if messages %}
+      {% for message in messages %}
+      <p>{{message}}</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="profile-container">
+
+      <div class="inner-container">
+        <div class="user-details">
+          <div class="profile-image-container">
+            <img src="{{ user.profile_image.url }}">
+          </div>
+          <div class="active-status-div">
+            <p id="online_status"></p>
+
+            <script>
+
+              var online_div = document.getElementById('online_status')
+              var lastactive = "{{ user.last_active.isoformat }}";
+              var last_active = new Date(lastactive);
+              var current_time = new Date();
+              if (current_time - last_active < 120000) {
+                online_div.append('online')
+              }
+              else {
+                var timescience = current_time - last_active
+                var minutes = Math.floor(timescience / 60000)
+                if (minutes < 59) {
+                  online_div.append('last online-' + minutes.toString() + " minutes ago")
+                }
+                else if (minutes > 60) {
+                  var hours = Math.floor(minutes / 60)
+                  var minute_s = minutes % 60
+                  if (hours < 3) {
+                    online_div.append('last online-' + hours.toString() + " hours " + minutes.toString() + " minutes ago")
+                  }
+                  else {
+                    online_div.append('last online-' + last_active.toLocaleString("en-AU"))
+                  }
+
+                }
+              }          
+            </script>
+
+
+
+
+
+
+          </div>
+          <div class="name-container">
+
+            <ul>
+              <li>
+                <p>{{user.first_name}}</p>
+              </li>
+              <li>
+                <p>{{user.last_name}}</p>
+              </li>
+            </ul>
+          </div>
+          <div class="details-div">
+            <ul>
+              <li>
+                <p>friends: {{ friend_count }}</p>
+              </li>
+              <li>
+                <p>rooms: {{ room_count }}</p>
+              </li>
+            </ul>
+          </div>
+          {% if user == request.user %}
+          <div class="form-div">
+            <form method="POST" id="radio_btn_form">
+              <ul>
+                <li>
+                  <label for="radio_btn_1">show email:</label>
+                  <input id="radio_btn_1" type="radio" name="show-email-status" value="" {% if not user.hide_email %}
+                    checked {% endif %}>
+                </li>
+                <li>
+                  <label for="radio_btn_2">hide email:</label>
+                  <input id="radio_btn_2" type="radio" name="show-email-status" value="" {% if user.hide_email %}
+                    checked {% endif %}>
+                </li>
+              </ul>
+            </form>
+          </div>
+          {% endif %}
+          {% if not user.hide_email %}
+          <div class="email-container">
+            <ul>
+              <li>
+                <p>{{user.email}}</p>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+          <div class="about-user-div">
+            <p>{{ user.about }}</p>
+          </div>
+        </div>
+
+        <div class="links-div">
+
+          {% if status == "is_friend" %}
+          <div class="input-btn">
+            <input type="submit" value="unfriend" id="unfriend" onclick="unfriend('{{id}}',this)">
+          </div>
+          {% elif status == "friend_req_sent" %}
+          <div class="input-btn">
+            <input type="submit" value="Cancle Request" onclick="cancle_request('{{id}}',this)">
+          </div>
+          {% elif status == "pending_friend_req" %}
+          <div class="accept-decline">
+            <ul>
+              <li>
+                <input type="submit" value="Accept" onclick="accept_req('{{friend_req_id}}',this)">
+              </li>
+              <li>
+                <input type="submit" value="Decline" onclick="decline_req('{{friend_req_id}}',this)">
+              </li>
+            </ul>
+          </div>
+          {% elif status == "send_friend_req" %}
+          <div class="input-btn">
+            <input type="submit" value="Send Request" onclick="send_request('{{id}}',this)">
+          </div>
+          {% elif status == "self_profile" %}
+          <div class="link-btn">
+            <a href="{% url 'accounts:edit-account' user.id %}">update account</a>
+          </div>
+          <div class="link-btn">
+            <a href="{% url 'friend:sent-requests' %}">sent requests</a>
+          </div>
+          <div class="link-btn">
+            <a href="{% url 'friend:recieved-requests' %}">recieved requests</a>
+          </div>
+          {% endif %}
+          {% if msg_button == "visible" %}
+          <div class="link-btn">
+            <a href="{% url 'private_chat:chatroom' chatroom %}">message</a>
+          </div>
+          {% endif %}
+          <div class="link-btn">
+            <a href="{% url 'friend:friend-list' user.id %}">friend list</a>
+          </div>
+          {% if status == "self_profile" %}
+          <div class="link-btn">
+            <a href="{% url 'accounts:logout' %}">Log out</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <script>
+    var f_orm = document.getElementById("radio_btn_form")
+    var radio_btn_1 = document.getElementById("radio_btn_1")
+    var radio_btn_2 = document.getElementById("radio_btn_2")
+
+    if (radio_btn_1){
+    radio_btn_1.addEventListener('change', function () {
+      email_status('{{user.username}}', f_orm)
+    })  }
+    if (radio_btn_2){
+    radio_btn_2.addEventListener('change', function () {
+      email_status('{{user.username}}', f_orm)
+    })  }
+
+  </script>
+
+
+</body>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if inheritance_1 or inheritance_2 %}
+{% include 'private_chat/inaccessible.html'%}
+
+{% else %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/delete.css' %}">
+</head>
+<body>
+
+  <div class="outer-delete-div">
+    <div class="delete-form-div">
+
+
+    <form method="POST" action="" class="delete-form">
+      {% csrf_token %}
+      <div class="actual-text">
+        <p>Are you sure you want to delete "{{obj}}"?</p>
+      </div>
+      <div class="options-holder">
+        <ul>
+          <li><a href="{{request.META.HTTP_REFERER}}">decline</a></li>
+          <li><input type="submit" value="Confirm" /></li>
+        </ul>
+      </div>
+    </form>
+
+
+
+    </div>
+  </div>
+
+
+
+
+  
+</body>
+</html>
+{% endif %}
+
+{% endblock content %}

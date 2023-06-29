@@ -1,0 +1,531 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    background-color: #3c3c3c;
+}
+
+
+.public-chat-container{
+
+    justify-content: center;
+    margin:1%;
+    display: flex;
+}
+
+
+.public-chat-container div{
+    margin: 0 1%;
+}
+.block-list-div{
+    width: 22%;
+}
+
+.chat-box-div{
+    width: 53%;
+}
+
+.participants-div{
+    width: 22%;
+}
+
+.restricted-users-btn{
+    cursor: pointer;
+    margin: auto !important;
+    width: 44%;
+    text-align: center;
+    padding: 0.5%;
+    text-transform: capitalize;
+    background-color: aliceblue;
+    color: blue;
+
+}
+
+.participants-btn{
+    cursor: pointer;
+    margin: auto !important;
+    width: 44%;
+    text-align: center;
+    padding: 0.5%;
+    text-transform: capitalize;
+    background-color: aliceblue;
+    color: blue;
+    
+}
+.text-body{
+    white-space: pre-wrap;
+    text-align: justify;
+    word-wrap: break-word;
+    margin-top: 0.7%;
+    max-width: 65%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 1.5%;
+    border-radius: 11px;
+}
+.text-detail{
+    color: white;
+    word-wrap: break-word;
+    font-size: 12px;
+    padding-left: 1.5%;
+    margin-top: 0.8%;
+    margin-left: 2%;
+    margin-right: 2%;
+    max-width: 65%;
+}
+.text-detail a{
+    color: white;
+    padding: 1% 2%;
+    background-color: blue;
+    text-transform: capitalize;
+}
+.text-detail input{
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: black;
+    padding: 1% 2%;
+    background-color: yellow;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.chat-box-div div{
+    margin-bottom: 0.8%;
+}
+.your-msg{
+    align-content: end;
+    display: flex;
+    flex-flow: column wrap;
+}
+.msg-usr{
+    color: #00f3ff !important;
+    background-color: unset !important;
+    padding: 0 !important;
+    margin: auto !important;
+    text-transform: capitalize !important;
+}
+.others-msg{
+    align-content: start;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.chat-box-div div ul{
+    margin-bottom: 0.8%;
+}
+
+
+.others-msg .text-body{
+    background-color: #a99d9d;
+}
+
+.your-msg .text-body{
+    background-color: #bad8e3e3;
+}
+
+.chat-box-div div form{
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+.chat-box-div div form textarea{
+    margin-left: 4%;
+    width: 59%;
+}
+
+
+
+.send-btn{
+    margin: 1%;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 1% 2%;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.discard-edit-btn{
+    font-size: 12px;
+    margin: 1%;
+    color: white;
+    padding: 1% 2%;
+    background-color: blue;
+    text-transform: capitalize;
+}
+
+.confirm-edit-btn{
+    margin: 1%;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: black;
+    padding: 1% 2%;
+    background-color: yellow;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.actual-chat-container{
+    overflow: auto;
+    max-height: 580px;
+}
+
+.block-list-div div{
+    margin: 1%;
+}
+
+
+.block-list-div div p{
+    padding: 5px 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.user-details{
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+.user-details img{
+    width: 40px;
+    border: 2px solid gray;
+    border-radius: 22px;
+}
+
+.user-details div ul li a{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #d2caff;
+    margin-left: 5px;
+}
+.user-details div ul li input{
+    margin-left: 5px;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: black;
+    padding: 3%;
+    background-color:#c5c57d;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+
+
+.participants-div div{
+    margin: 1%;
+
+}
+
+.participants-div div p{
+    padding: 5px 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.heading{
+    background-color: aliceblue;
+    padding: 5px 0;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 1px;
+}
+
+
+
+.participants-details{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.participant-container-div{
+    display: flex;
+    align-items: center;
+}
+
+.participants-details div img{
+    width: 40px;
+    border: 2px solid gray;
+    border-radius: 22px;
+}
+
+.participants-details div div a{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #d2caff;
+    margin-left: 5px;
+}
+
+.participants-details div div input{
+    margin: 1px 2px;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: black;
+    padding: 3%;
+    background-color: #c5c57d;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+
+.btn-holder-div{
+    justify-content: center;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.name-holder{
+    width: max-content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+.sec-col{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+
+
+
+.room-name-sec{
+    color: aliceblue;
+    margin: auto !important;
+}
+.room-name-sec p{
+    text-transform: capitalize;
+    padding: 0 5px;
+}
+
+.update-room-btn{
+    padding: 2px;
+    margin: auto !important;
+}
+.update-room-btn a{
+    background-color: blue;
+    font-size: 12px;
+    color: whitesmoke;
+    text-transform: capitalize;
+    padding:5px;
+}
+.delete-room-btn{
+    padding: 2px;
+    margin: auto !important;
+}
+.delete-room-btn a{
+    background-color: blue;
+    font-size: 12px;
+    color: whitesmoke;
+    text-transform: capitalize;
+    padding:5px;
+}
+
+
+
+
+.block-back-btn{
+    cursor: pointer;
+    display: none;
+    background-color: aliceblue;
+    color: blue;
+}
+.show-participants-btn{
+    cursor: pointer;
+    display: none;
+    background-color: aliceblue;
+    color: blue;
+}
+.first-col{
+    /* display: flex; */
+    display: none;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.participants-back-btn{
+    cursor: pointer;
+    display: none;
+    background-color: aliceblue;
+    color: blue;
+}
+.show-restricted-user-btn{
+    cursor: pointer;
+    display: none;
+    background-color: aliceblue;
+    color: blue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width:891px){
+    .block-list-div{
+        display: block !important;
+        width: 22% !important;
+    }
+    .participants-div{
+        display: block !important;
+        width: 22% !important;
+    }
+    .chat-box-div{
+        display: block !important;
+        width: 53% !important;
+    }
+}
+
+@media (max-width:890px){
+    .block-list-div{
+        display: none;
+    }
+    .chat-box-div{
+        width:66%;
+    }
+    .participants-div{
+        width: 29%;   
+    }
+    .show-restricted-user-btn{
+        display:block;
+    }
+    .show-participants-btn{
+        display: block;
+    }
+}
+
+
+@media only screen and (max-width:620px){
+    .chat-box-div{
+        width:97%;
+    }
+    .show-restricted-user-btn{
+        display:none;
+    }
+    .show-participants-btn{
+        display: none;
+    }
+    .first-col{
+        display: flex;
+    }
+
+
+
+    .block-back-btn{
+        display: block;
+    }
+    .participants-back-btn{
+        display: block;
+    }
+    .participants-div{
+        display: none !important;  
+    }
+    .block-list-div{
+        display: none !important;
+    }
+}
+
+.leave-clear{
+    padding: 2px;
+}
+
+.leave-clear input{
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 5px;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+.sec-col div{
+    margin: 1px auto;
+}
+
+
+#clear-confirm div div a{
+    font-size: 12px;
+    margin: 1%;
+    color: white;
+    padding: 5px 6px;
+    background-color: green;
+    text-transform: capitalize;
+}
+
+#clear-confirm div div input{
+    cursor: pointer;
+    border-width: 0px;
+    border-style: none;
+    border-image: none;
+    color: white;
+    padding: 5px;
+    background-color: blue;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+#clear-confirm{
+    color: white;
+    justify-content: center;
+}
+#clear-confirm div{
+    margin: 0 5px;
+    display: flex;
+}
