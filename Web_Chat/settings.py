@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["3.110.178.91","vartalaap.online","www.vartalaap.online"]
 
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
-ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
+# ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
 
 
 
