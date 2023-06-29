@@ -45,7 +45,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    # 'channels',
 
     'django.contrib.admin',
     'django.contrib.auth',
