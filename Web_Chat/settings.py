@@ -25,7 +25,7 @@ PASSWORD_RESET_TIMEOUT = 1200
 
 
 
-ALLOWED_HOSTS = ["52.66.210.169","vartalaap.online","www.vartalaap.online"]
+ALLOWED_HOSTS = ["3.110.178.91","vartalaap.online","www.vartalaap.online"]
 
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
@@ -196,6 +196,6 @@ EMAIL_HOST_PASSWORD= config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
 
-BASE_URL = "http://52.66.210.169"
+BASE_URL = "http://3.110.178.91"
 
 CORS_ALLOW_ALL_ORIGINS = True
