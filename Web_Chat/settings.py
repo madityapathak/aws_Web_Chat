@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PASSWORD_RESET_TIMEOUT = 1200
 
 
+ALLOWED_HOSTS = ["*"]
 
 
-
-ALLOWED_HOSTS = ["3.110.178.91","vartalaap.online","www.vartalaap.online"]
+# ALLOWED_HOSTS = ["3.110.178.91","vartalaap.online","www.vartalaap.online"]
 
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
