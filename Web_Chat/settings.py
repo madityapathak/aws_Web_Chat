@@ -22,14 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PASSWORD_RESET_TIMEOUT = 1200
 
 
-ALLOWED_HOSTS = ["*"]
 
-
-# ALLOWED_HOSTS = ["3.110.178.91","vartalaap.online","www.vartalaap.online"]
+ALLOWED_HOSTS = ["13.233.87.93","vartalaap.online","www.vartalaap.online"]
 
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 
-# ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
+ASGI_APPLICATION = f'{config("PROJECT_NAME")}.routing.application'
 
 
 
@@ -45,7 +43,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # Application definition
 
 INSTALLED_APPS = [
-    # 'channels',
+    'channels',
 
     'django.contrib.admin',
     'django.contrib.auth',
